@@ -1,6 +1,6 @@
 #include <Servo.h> 
 #include <Stepper.h>
-Servo myservo; 
+Servo myservo; // servo motor handle
 
 #define STEPS 200  // num of steps for the stepper motor
 Stepper stepper(STEPS, 8, 9, 10, 11); // pin numbers for controlling the stepper motor.
@@ -27,11 +27,11 @@ void loop() {
   myservo.write(0); // release the birdie, holding arm angle to 0 
   delay(200); // wait for the birdie to hit the throwing motors and fly away
   slowlySpeedUp(up); // go back up
-  stepper.step(-15800); // go back up to the beginning point.
+  stepper.step(-15800); // go back up to the beginning point. note the negative sign
 }
 
 // Manual but highly effective. Because this robot is a mechanical device, I can't go to maximum speed immediately. 
-// have to slowly speed up.
+// have to slowly speed up, go a few steps and speed up more. 
 void slowlySpeedUp(int direction) {
   int initialStep = 15; // experimental number, used for deciding how quick to speed up
   stepper.setSpeed(10);
@@ -46,7 +46,7 @@ void slowlySpeedUp(int direction) {
   stepper.step(direction*initialStep*16);
   stepper.setSpeed(200); // couldn't double the speed, motor wouldn't go
   stepper.step(direction*initialStep*32);
-  stepper.setSpeed(210); // can't double, just incremental increase
+  stepper.setSpeed(210); // can't double, motor cant handle, just incremental increase
   stepper.step(direction*initialStep*32);
 }
 
