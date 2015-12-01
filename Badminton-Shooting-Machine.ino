@@ -3,6 +3,7 @@
 Servo myservo; 
 
 #define STEPS 200  // num of steps for the stepper motor
+Stepper stepper(STEPS, 8, 9, 10, 11); // pin numbers for controlling the stepper motor.
 
 int up = -1;  // travel direction.
 int down = 1;
@@ -11,7 +12,6 @@ int down = 1;
 // only run once at the beginning
 void setup() {
   myservo.attach(2);  // pin 2 for controlling the servo motor.
-  Stepper stepper(STEPS, 8, 9, 10, 11); // pin numbers for controlling the stepper motor.
 }
 
 
@@ -28,6 +28,7 @@ void loop() {
   delay(200); // wait for the birdie to hit the throwing motors and fly away
   slowlySpeedUp(up); // go back up
   stepper.step(-15800); // go back up to the beginning point.
+}
 
 // Manual but highly effective. Because this robot is a mechanical device, I can't go to maximum speed immediately. 
 // have to slowly speed up.
@@ -48,5 +49,4 @@ void slowlySpeedUp(int direction) {
   stepper.setSpeed(210); // can't double, just incremental increase
   stepper.step(direction*initialStep*32);
 }
-
 
