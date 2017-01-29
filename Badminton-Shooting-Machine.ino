@@ -16,6 +16,7 @@ void setup() {
 
 
 // runs after the setup, forever
+// nuermcal values are found experimentally
 void loop() {
   myservo.write(0); // sets the arm angle to 0.
   delay(1000); // wait a 1000 miliseconds, 1 sec
@@ -38,15 +39,5 @@ void slowlySpeedUp(int direction) {
   stepper.step(direction*initialStep);
   stepper.setSpeed(20);
   stepper.step(direction*initialStep*2); // higher the speed, higher the steps so that steps/speed = time remains constant. 
-  stepper.setSpeed(40);
-  stepper.step(direction*initialStep*4);
-  stepper.setSpeed(80);
-  stepper.step(direction*initialStep*8);
-  stepper.setSpeed(160);
-  stepper.step(direction*initialStep*16);
-  stepper.setSpeed(200); // couldn't double the speed, motor wouldn't go
-  stepper.step(direction*initialStep*32);
-  stepper.setSpeed(210); // can't double, motor cant handle, just incremental increase
-  stepper.step(direction*initialStep*32);
 }
 
